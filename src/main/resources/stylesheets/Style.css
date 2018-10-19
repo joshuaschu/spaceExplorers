@@ -1,0 +1,36 @@
+
+.root {
+    -fx-background-image: url("../pictures/defaultBackground.jpg");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: "Fool's Errand";
+    -fx-font-size: 18;
+}
+.header {
+    -fx-background-color: rgba(211, 211, 211, 0.2);
+    -fx-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 0);
+    -fx-padding: 8 10;
+    -fx-text-fill: #ffffff;
+}
+#headerLabel{
+    -fx-text-fill: #ffffff;
+}
+#infoButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-border-radius: 50%;
+    -fx-background-image: url("../icons/info-2-48.png");
+    -fx-background-repeat: no-repeat;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-opacity: 0.7;
+}
+.mainLabel {
+    -fx-font-size: 70;
+    -fx-font-family: "Fool's Errand";
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+}

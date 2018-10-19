@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:controller="de.joshuaschulz.space.FXMLExampleController"
+            xmlns:fx="http://javafx.com/fxml" styleClass="root">
+    <top>
+        <BorderPane styleClass="header">
+            <center>
+                <Label fx:id="headerLabel" text="Space Explorers" alignment="CENTER" textAlignment="CENTER"/>
+            </center>
+        </BorderPane>
+    </top>
+    <center>
+            <BorderPane>
+            <bottom>
+                <HBox>
+                <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+                    <Button fx:id="infoButton" />
+                </HBox>
+            </bottom>
+            <center>
+                <Label fx:id="contentLabel" text="Welcome back, Space Explorer!" alignment="CENTER" textAlignment="CENTER" styleClass="mainLabel"/>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
