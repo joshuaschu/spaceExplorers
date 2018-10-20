@@ -1,5 +1,8 @@
 package de.joshuaschulz.space;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import de.joshuaschulz.connection.APIRequestHandler;
 import de.joshuaschulz.connection.AsyncAPICall;
 import javafx.application.Application;
@@ -40,7 +43,10 @@ public class App extends Application {
             executor.execute(new APIRequestHandler(new AsyncAPICall() {
                 @Override
                 public void onSuccess(String result) {
-                    System.out.println(result);
+                    Gson gson = new Gson();
+                    JsonObject jsonObject = gson.fromJson( result, JsonObject.class);
+                    String element = jsonObject.get("url").toString();
+                    parent.setStyle("-fx-background-image: url("+element+")");
                 }
             }));
 
