@@ -1,5 +1,7 @@
 package de.joshuaschulz.space;
 
+import de.joshuaschulz.connection.APIRequestHandler;
+import de.joshuaschulz.connection.AsyncAPICall;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class App extends Application {
+    private ExecutorService executor = Executors.newCachedThreadPool();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,7 +36,17 @@ public class App extends Application {
     }
 
     private void loadBackground(Parent parent) {
+        try {
+            executor.execute(new APIRequestHandler(new AsyncAPICall() {
+                @Override
+                public void onSuccess(String result) {
+                    System.out.println(result);
+                }
+            }));
 
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        executor.shutdown();
     }
 }
