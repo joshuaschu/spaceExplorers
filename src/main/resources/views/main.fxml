@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <BorderPane fx:controller="de.joshuaschulz.space.AppController"
             xmlns:fx="http://javafx.com/fxml" styleClass="root">
@@ -19,8 +17,18 @@
             <BorderPane>
             <bottom>
                 <HBox>
-                <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-                    <Button fx:id="infoButton" onAction="#handleInfoButton" />
+                <padding><Insets top="25" right="25" bottom="20" left="25"/></padding>
+                    <Button fx:id="infoButton" onAction="#handleInfoButton" >
+                        <HBox.margin>
+                        <Insets>
+                            <right>10</right>
+                        </Insets>
+                    </HBox.margin>
+                    </Button>
+                    <HBox>
+                        <padding><Insets  top="-8" /></padding>
+                        <Label fx:id="startUpInfo" alignment="CENTER">This is the PictureInfo</Label>
+                    </HBox>
                 </HBox>
             </bottom>
             <center>

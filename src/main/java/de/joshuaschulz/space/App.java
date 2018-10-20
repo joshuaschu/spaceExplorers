@@ -3,8 +3,6 @@ package de.joshuaschulz.space;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import de.joshuaschulz.connection.APIRequest;
-import de.joshuaschulz.connection.APIRequestHandler;
-import de.joshuaschulz.connection.AsyncAPICall;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class App extends Application {
     private ExecutorService executor = Executors.newCachedThreadPool();
@@ -51,6 +46,7 @@ public class App extends Application {
                 });
             }
         });
+        executor.shutdown();
     }
 
     private Parent loadBackground()  {
