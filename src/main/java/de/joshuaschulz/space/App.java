@@ -2,17 +2,22 @@ package de.joshuaschulz.space;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import de.joshuaschulz.connection.APIRequest;
 import de.joshuaschulz.connection.APIRequestHandler;
 import de.joshuaschulz.connection.AsyncAPICall;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class App extends Application {
     private ExecutorService executor = Executors.newCachedThreadPool();
@@ -31,24 +36,37 @@ public class App extends Application {
                 (css);
         primaryStage.setScene(scene);
         primaryStage.show();
-        loadBackground(root);
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                Parent innerRoot = loadBackground();
+                Scene innerScene = new Scene(innerRoot,1464,1000);
+                innerScene.getStylesheets().add
+                        (css);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        primaryStage.setScene(innerScene);
+                    }
+                });
+            }
+        });
     }
 
-    private void loadBackground(Parent parent) {
+    private Parent loadBackground()  {
         try {
-            executor.execute(new APIRequestHandler(new AsyncAPICall() {
-                @Override
-                public void onSuccess(String result) {
-                    Gson gson = new Gson();
-                    JsonObject jsonObject = gson.fromJson( result, JsonObject.class);
-                    String element = jsonObject.get("url").toString();
-                    parent.setStyle("-fx-background-image: url("+element+")");
-                }
-            }));
-
+            Parent parent = FXMLLoader.load(this.getClass().getResource("/views/main.fxml"));
+            APIRequest apiRequest = new APIRequest("https://api.nasa.gov/planetary/apod");
+            String result = apiRequest.performAPICall();
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson( result, JsonObject.class);
+            String element = jsonObject.get("url").toString();
+            parent.setStyle("-fx-background-image: url("+element+")");
+            return parent;
         }catch (Exception e){
             e.printStackTrace();
+            return null;
         }
-        executor.shutdown();
+
     }
 }
