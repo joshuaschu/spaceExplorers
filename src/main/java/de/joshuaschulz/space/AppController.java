@@ -4,13 +4,20 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import de.joshuaschulz.connection.APIRequestHandler;
 import de.joshuaschulz.connection.AsyncAPICall;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseDragEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 
 import java.net.URL;
@@ -25,6 +32,8 @@ public class AppController implements Initializable {
     private Gson gson = new Gson();
 
     public Label startUpInfo;
+    public Label contentLabel;
+    public BorderPane mainPane;
 
     @Override
     @FXML
@@ -61,6 +70,18 @@ public class AppController implements Initializable {
     protected void handleExitedInfoButton() {
         startUpInfo.setVisible(false);
     }
+    @FXML
+    protected void handleStartUpClick() {
+        //TODO: path transition???
+        FadeTransition ft = new FadeTransition(Duration.millis(2000),mainPane.getCenter());
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(true);
+
+        ft.play();
+    }
+
     private void showInfo(){
         Dialog dialog = new Dialog();
         DialogPane dialogPane = dialog.getDialogPane();

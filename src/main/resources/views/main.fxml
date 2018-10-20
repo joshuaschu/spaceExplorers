@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:controller="de.joshuaschulz.space.AppController"
-            xmlns:fx="http://javafx.com/fxml" styleClass="root">
+            xmlns:fx="http://javafx.com/fxml" styleClass="root" fx:id="mainPane">
     <top>
         <BorderPane styleClass="header">
             <center>
@@ -14,7 +14,7 @@
         </BorderPane>
     </top>
     <center>
-            <BorderPane>
+            <BorderPane onMouseClicked="#handleStartUpClick">
             <bottom>
                 <HBox>
                 <padding><Insets top="25" right="25" bottom="20" left="25"/></padding>
@@ -32,7 +32,7 @@
                 </HBox>
             </bottom>
             <center>
-                <Label fx:id="contentLabel" text="Welcome back, Space Explorer!" alignment="CENTER" textAlignment="CENTER" styleClass="mainLabel"/>
+                     <Label fx:id="contentLabel" text="Welcome back, Space Explorer!" alignment="CENTER" textAlignment="CENTER" styleClass="mainLabel"/>
             </center>
         </BorderPane>
     </center>
