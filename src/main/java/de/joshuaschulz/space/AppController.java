@@ -9,10 +9,12 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
@@ -20,6 +22,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -78,8 +81,9 @@ public class AppController implements Initializable {
         ft.setToValue(0.0);
         ft.setCycleCount(1);
         ft.setAutoReverse(true);
-
         ft.play();
+        loadFXML(getClass().getResource("/views/main.fxml"));
+        mainPane.setBottom(null);
     }
 
     private void showInfo(){
@@ -95,5 +99,14 @@ public class AppController implements Initializable {
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.showAndWait();
+    }
+    private void loadFXML(URL url) {
+        try {
+            StackPane stackPane = new StackPane();
+            stackPane.getChildren().add(FXMLLoader.load(url));
+            this.mainPane.setCenter(stackPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
