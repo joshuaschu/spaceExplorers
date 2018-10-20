@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:controller="de.joshuaschulz.space.FXMLExampleController"
+<BorderPane fx:controller="de.joshuaschulz.space.AppController"
             xmlns:fx="http://javafx.com/fxml" styleClass="root">
     <top>
         <BorderPane styleClass="header">

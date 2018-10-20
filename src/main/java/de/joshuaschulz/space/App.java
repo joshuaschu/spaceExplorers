@@ -22,7 +22,7 @@ public class App extends Application {
     }
     public void start(Stage primaryStage) throws Exception {
         Font font= Font.loadFont(getClass().getResource("/fonts/Fools-Errand.ttf").toExternalForm(), 18);
-        Parent root = FXMLLoader.load(this.getClass().getResource("/views/main.fxml"));
+        Parent root = FXMLLoader.load(this.getClass().getResource("/views/loading.fxml"));
         primaryStage.setTitle("Space Explorers");
         Scene scene = new Scene(root,1464,1000);
 
