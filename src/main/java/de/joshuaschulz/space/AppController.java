@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseDragEvent;
 
 
 import java.net.URL;
@@ -45,7 +46,15 @@ public class AppController implements Initializable {
 
     @FXML
     protected void handleInfoButton(ActionEvent event) {
+
+    }
+    @FXML
+    protected void handleEnteredInfoButton() {
         startUpInfo.setText(resultBackground.get("title").toString());
         startUpInfo.setVisible(true);
+    }
+    @FXML
+    protected void handleExitedInfoButton() {
+        startUpInfo.setVisible(false);
     }
 }

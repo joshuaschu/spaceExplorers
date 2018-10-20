@@ -18,7 +18,7 @@
             <bottom>
                 <HBox>
                 <padding><Insets top="25" right="25" bottom="20" left="25"/></padding>
-                    <Button fx:id="infoButton" onAction="#handleInfoButton" >
+                    <Button fx:id="infoButton" onAction="#handleInfoButton" onMouseEntered="#handleEnteredInfoButton" onMouseExited="#handleExitedInfoButton">
                         <HBox.margin>
                         <Insets>
                             <right>10</right>
