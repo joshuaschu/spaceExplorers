@@ -1,7 +1,5 @@
 package de.joshuaschulz.connection;
 
-import java.net.URL;
-
 public class APIRequestHandler implements Runnable {
     private APIRequest APIRequest;
     private AsyncAPICall asyncCall;

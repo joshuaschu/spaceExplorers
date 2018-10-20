@@ -1,17 +1,13 @@
 package de.joshuaschulz.space;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.joshuaschulz.connection.APIRequestHandler;
 import de.joshuaschulz.connection.AsyncAPICall;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 

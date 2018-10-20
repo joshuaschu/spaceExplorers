@@ -1,12 +1,8 @@
 package de.joshuaschulz.connection;
 
-import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
 public class APIRequest {
