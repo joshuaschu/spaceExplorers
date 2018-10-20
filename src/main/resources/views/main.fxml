@@ -20,7 +20,7 @@
             <bottom>
                 <HBox>
                 <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-                    <Button fx:id="infoButton" />
+                    <Button fx:id="infoButton" onAction="#handleInfoButton" />
                 </HBox>
             </bottom>
             <center>

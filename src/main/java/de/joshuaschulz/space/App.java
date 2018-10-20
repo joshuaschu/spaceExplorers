@@ -18,20 +18,18 @@ public class App extends Application {
         Font font= Font.loadFont(getClass().getResource("/fonts/Fools-Errand.ttf").toExternalForm(), 18);
         Parent root = FXMLLoader.load(this.getClass().getResource("/views/main.fxml"));
         primaryStage.setTitle("Space Explorers");
-        Button btn = new Button();
-        btn.setText("Say 'Hallo World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                System.out.println("Hello World");
-            }
-        });
         Scene scene = new Scene(root,1464,1000);
-
 
         String css = this.getClass().getResource("/stylesheets/Style.css").toExternalForm();
         scene.getStylesheets().add
                 (css);
         primaryStage.setScene(scene);
         primaryStage.show();
+        loadBackground(root);
+    }
+
+    private void loadBackground(Parent parent) {
+
+
     }
 }
