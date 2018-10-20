@@ -51,7 +51,7 @@ public class App extends Application {
 
     private Parent loadBackground()  {
         try {
-            Parent parent = FXMLLoader.load(this.getClass().getResource("/views/main.fxml"));
+            Parent parent = FXMLLoader.load(this.getClass().getResource("/views/startup.fxml"));
             APIRequest apiRequest = new APIRequest("https://api.nasa.gov/planetary/apod");
             String result = apiRequest.performAPICall();
             Gson gson = new Gson();
