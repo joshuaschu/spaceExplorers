@@ -40,7 +40,7 @@ public class App extends Application {
 
     private void loadBackground(Parent parent) {
         try {
-            executor.execute(new APIRequestHandler(new AsyncAPICall() {
+            executor.execute(new APIRequestHandler("https://api.nasa.gov/planetary/apod",new AsyncAPICall() {
                 @Override
                 public void onSuccess(String result) {
                     Gson gson = new Gson();
