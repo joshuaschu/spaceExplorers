@@ -28,7 +28,7 @@
                                         <Insets top="5" right="10" bottom="15" left="15"/>
                                     </padding>
                                     <!-- TODO: Header transparency???-->
-                                    <JFXTreeTableView styleClass="infoBox">
+                                    <JFXTreeTableView fx:id="nearestObjects" styleClass="infoBox">
                                         <columns>
                                             <JFXTreeTableColumn fx:id="nameColumn"
                                                                 minWidth="133" text="Name" prefWidth="133"
