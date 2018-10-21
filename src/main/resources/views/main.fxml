@@ -1,25 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <BorderPane fx:controller="de.joshuaschulz.space.MainController"
             xmlns:fx="http://javafx.com/fxml">
-   <center>
-       <JFXMasonryPane>
-           <VBox prefWidth="250" prefHeight="250" styleClass="infoBox">
-               <Label>Text</Label>
-           </VBox>
-           <VBox prefWidth="250" prefHeight="250" styleClass="infoBox">
-               <Label style="-fx-font-size: 50">Text</Label>
-           </VBox>
-           <VBox prefWidth="250" prefHeight="250" styleClass="infoBox" minHeight="250" minWidth="250">
-               <Label style="-fx-font-size: 50">Text</Label>
-           </VBox>
-       </JFXMasonryPane>
-   </center>
+    <center>
+        <JFXMasonryPane>
+            <VBox prefWidth="400" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="400">
+                <BorderPane>
+                    <top>
+                        <BorderPane styleClass="header">
+                            <center>
+                                <Label text="Todays nearest objects" alignment="CENTER" textAlignment="CENTER"
+                                       style="-fx-font-size: 20"/>
+                            </center>
+                        </BorderPane>
+                    </top>
+                    <center>
+                        <BorderPane>
+                            <center>
+                                <HBox>
+                                    <padding>
+                                        <Insets top="5" right="10" bottom="15" left="15"/>
+                                    </padding>
+                                    <!-- TODO: Header transparency???-->
+                                    <JFXTreeTableView styleClass="infoBox">
+                                        <columns>
+                                            <JFXTreeTableColumn fx:id="nameColumn"
+                                                                minWidth="133" text="Name" prefWidth="133"
+                                                                resizable="true"/>
+                                            <JFXTreeTableColumn fx:id="closesApproach"
+                                                                minWidth="133" text="Closest Approach" prefWidth="133"
+                                                                resizable="true"/>
+                                            <JFXTreeTableColumn fx:id="isHazardous"
+                                                                minWidth="133" text="Hazardous" prefWidth="133"
+                                                                resizable="true"/>
+                                        </columns>
+                                    </JFXTreeTableView>
+                                </HBox>
+                            </center>
+                        </BorderPane>
+                    </center>
+                </BorderPane>
+            </VBox>
+            <VBox prefWidth="250" prefHeight="250" styleClass="infoBox">
+                <Label style="-fx-font-size: 50">Text</Label>
+            </VBox>
+            <VBox prefWidth="250" prefHeight="250" styleClass="infoBox" minHeight="250" minWidth="250">
+                <Label style="-fx-font-size: 50">Text</Label>
+            </VBox>
+        </JFXMasonryPane>
+    </center>
 </BorderPane>
