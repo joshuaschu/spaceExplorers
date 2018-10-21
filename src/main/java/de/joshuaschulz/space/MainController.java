@@ -27,7 +27,7 @@ public class MainController implements Initializable {
     private boolean fetchAPI(String baseURL, Map<String,String> params){
         //TODO: complete after connectionUtils are fixed
         try {
-            executor.execute(new APIRequestHandler(new AsyncAPICall() {
+            executor.execute(new APIRequestHandler("",new AsyncAPICall() {
                 @Override
                 public void onSuccess(String result) {
 

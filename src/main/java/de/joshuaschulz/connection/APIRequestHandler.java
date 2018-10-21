@@ -1,11 +1,12 @@
 package de.joshuaschulz.connection;
 
+
 public class APIRequestHandler implements Runnable {
     private APIRequest APIRequest;
     private AsyncAPICall asyncCall;
 
-    public APIRequestHandler(AsyncAPICall asyncCall) throws Exception{
-            this(new APIRequest("https://api.nasa.gov/planetary/apod"),asyncCall);
+    public APIRequestHandler(String baseURl,AsyncAPICall asyncCall) throws Exception {
+            this(new APIRequest(baseURl),asyncCall);
     }
 
     private APIRequestHandler(APIRequest serverRequest, AsyncAPICall asyncCall) {
