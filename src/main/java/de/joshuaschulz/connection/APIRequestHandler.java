@@ -1,12 +1,17 @@
 package de.joshuaschulz.connection;
 
 
+import java.util.Map;
+
 public class APIRequestHandler implements Runnable {
     private APIRequest APIRequest;
     private AsyncAPICall asyncCall;
 
     public APIRequestHandler(String baseURl,AsyncAPICall asyncCall) throws Exception {
             this(new APIRequest(baseURl),asyncCall);
+    }
+    public APIRequestHandler(String baseURl, Map<String,String> params, AsyncAPICall asyncCall) throws Exception {
+        this(new APIRequest(baseURl,params),asyncCall);
     }
 
     private APIRequestHandler(APIRequest serverRequest, AsyncAPICall asyncCall) {

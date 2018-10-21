@@ -10,8 +10,9 @@ public class APIRequest {
     private static final String API_KEY = "?api_key=6v9qvvdHbEckYYAizpz8AYPozpJJdiOgJC1yJz9s";
     private final URL requestURL;
     //TODO: Handle Exceptions
-   public APIRequest(URL apiURL, Map<String,String> parameters) throws UnsupportedEncodingException, MalformedURLException {
-        requestURL=new URL(new URL(apiURL,API_KEY),ParameterStringBuilder.getParamsString(parameters));
+   public APIRequest(String apiURL, Map<String,String> parameters) throws UnsupportedEncodingException, MalformedURLException {
+        String requestString= apiURL+API_KEY+ParameterStringBuilder.getParamsString(parameters);
+        requestURL=new URL(requestString);
    }
    public APIRequest(String apiURL)throws Exception{
        requestURL=new URL(apiURL+API_KEY);
