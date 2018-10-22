@@ -60,8 +60,8 @@ public class MainController implements Initializable {
                     JsonArray array = objectJson.getAsJsonArray(getCurrentDate());
                     for (int i = 0; i < array.size(); i++) {
                         spaceObjects.add(new Asteroid(array.get(i).getAsJsonObject().get("name").toString(),
-                                                         array.get(i).getAsJsonObject().get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject().get("miss_distance").getAsJsonObject().get("kilometers").toString(),
-                                                         array.get(i).getAsJsonObject().get("is_potentially_hazardous_asteroid").toString()));
+                                                      parseLongInt(array.get(i).getAsJsonObject().get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject().get("miss_distance").getAsJsonObject().get("kilometers").toString()),
+                                                      array.get(i).getAsJsonObject().get("is_potentially_hazardous_asteroid").toString()));
                     }
                     final TreeItem<Asteroid> root = new RecursiveTreeItem<Asteroid>(spaceObjects,RecursiveTreeObject::getChildren);
                     Platform.runLater(()->{
@@ -85,6 +85,17 @@ public class MainController implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
+    }
+    private String parseLongInt(String longInt){
+        StringBuilder result = new StringBuilder();
+        longInt=longInt.substring(1,longInt.length()-1);
+        while(longInt.length()>=4){
+            result.insert(0,longInt.substring(longInt.length()-3));
+            result.insert(0,".");
+            longInt=longInt.substring(0,longInt.length()-3);
+        }
+        result.insert(0,longInt);
+        return result.toString();
     }
     class Asteroid extends RecursiveTreeObject<Asteroid>{
         StringProperty name;
