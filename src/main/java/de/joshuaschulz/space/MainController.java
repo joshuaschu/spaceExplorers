@@ -89,6 +89,7 @@ public class MainController implements Initializable {
     private String parseLongInt(String longInt){
         StringBuilder result = new StringBuilder();
         longInt=longInt.substring(1,longInt.length()-1);
+        longInt=longInt.replace('.',',');
         while(longInt.length()>=4){
             result.insert(0,longInt.substring(longInt.length()-3));
             result.insert(0,".");

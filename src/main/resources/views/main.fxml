@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml">
     <center>
         <JFXMasonryPane>
-            <VBox prefWidth="400" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="400">
+            <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500" >
                 <BorderPane>
                     <top>
                         <BorderPane styleClass="header">
@@ -23,7 +23,7 @@
                     <center>
                         <BorderPane>
                             <center>
-                                <HBox>
+                                <VBox>
                                     <padding>
                                         <Insets top="5" right="10" bottom="15" left="15"/>
                                     </padding>
@@ -41,7 +41,7 @@
                                                                 resizable="true"/>
                                         </columns>
                                     </JFXTreeTableView>
-                                </HBox>
+                                </VBox>
                             </center>
                         </BorderPane>
                     </center>
