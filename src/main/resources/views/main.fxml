@@ -47,8 +47,42 @@
                     </center>
                 </BorderPane>
             </VBox>
-            <VBox prefWidth="250" prefHeight="250" styleClass="infoBox">
-                <Label style="-fx-font-size: 50">Text</Label>
+            <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500">
+                <BorderPane>
+                    <top>
+                        <BorderPane styleClass="header">
+                            <center>
+                                <Label text="Latest geomagnetic storms" alignment="CENTER" textAlignment="CENTER"
+                                       style="-fx-font-size: 20"/>
+                            </center>
+                        </BorderPane>
+                    </top>
+                    <center>
+                        <BorderPane>
+                            <center>
+                                <VBox>
+                                    <padding>
+                                        <Insets top="5" right="10" bottom="15" left="15"/>
+                                    </padding>
+                                    <!-- TODO: Header transparency???-->
+                                    <JFXTreeTableView fx:id="geomagneticStorms" styleClass="infoBox">
+                                        <columns>
+                                            <JFXTreeTableColumn fx:id="dateColumn"
+                                                                minWidth="133" text="Date" prefWidth="133"
+                                                                resizable="true"/>
+                                            <JFXTreeTableColumn fx:id="timeColumn"
+                                                                minWidth="133" text="Time" prefWidth="133"
+                                                                resizable="true"/>
+                                            <JFXTreeTableColumn fx:id="categoryColumn"
+                                                                minWidth="133" text="Category" prefWidth="133"
+                                                                resizable="true"/>
+                                        </columns>
+                                    </JFXTreeTableView>
+                                </VBox>
+                            </center>
+                        </BorderPane>
+                    </center>
+                </BorderPane>
             </VBox>
             <VBox prefWidth="250" prefHeight="250" styleClass="infoBox" minHeight="250" minWidth="250">
                 <Label style="-fx-font-size: 50">Text</Label>

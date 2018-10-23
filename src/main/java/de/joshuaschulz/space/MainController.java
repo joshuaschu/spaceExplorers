@@ -40,6 +40,7 @@ public class MainController implements Initializable {
 
         apiResults = new HashMap<>();
         fillNearestObjects();
+        executor.shutdown();
     }
 
     private void fillNearestObjects(){
@@ -78,8 +79,6 @@ public class MainController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        executor.shutdown();
-        getCurrentDate();
     }
     private String getCurrentDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
