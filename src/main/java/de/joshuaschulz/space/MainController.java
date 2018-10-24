@@ -23,9 +23,11 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -106,8 +108,8 @@ public class MainController implements Initializable {
                public void onSuccess(String result) {
                    JsonArray array = gson.fromJson(result,JsonArray.class);
                    for (int i = 0; i < array.size(); i++) {
-                       gsts.add(new GST(array.get(i).getAsJsonObject().get("startTime").toString(),
-                                        array.get(i).getAsJsonObject().get("startTime").toString(),
+                       gsts.add(new GST(parseTimestampToDate(array.get(i).getAsJsonObject().get("startTime").toString()),
+                                        parseTimestampToTime(array.get(i).getAsJsonObject().get("startTime").toString()),
                                         array.get(i).getAsJsonObject().get("allKpIndex").getAsJsonArray().get(0).getAsJsonObject().get("kpIndex").toString()));
                    }
                    final TreeItem<GST> root = new RecursiveTreeItem<GST>(gsts,RecursiveTreeObject::getChildren);
@@ -150,5 +152,19 @@ public class MainController implements Initializable {
         }
         result.insert(0,longInt);
         return result.toString();
+    }
+    private String parseTimestampToDate(String timestamp){
+        //TODO: parse date do not hardcode
+        StringBuilder result = new StringBuilder();
+        result.append(timestamp.substring(9,11));
+        result.append(".");
+        result.append(timestamp.substring(6,8));
+        result.append(".");
+        result.append(timestamp.substring(1,5));
+        return result.toString();
+    }
+    private String parseTimestampToTime(String timestamp){
+        //TODO: parse time do not hardcode
+        return timestamp.substring(12,17);
     }
 }
