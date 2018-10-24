@@ -10,17 +10,24 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import de.joshuaschulz.connection.APIRequestHandler;
 import de.joshuaschulz.connection.AsyncAPICall;
+import de.joshuaschulz.space.objects.Asteroid;
+import de.joshuaschulz.space.objects.GST;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.util.Callback;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -31,6 +38,10 @@ public class MainController implements Initializable {
     public JFXTreeTableColumn<Asteroid,String> nameColumn;
     public JFXTreeTableColumn<Asteroid,String> closesApproach;
     public JFXTreeTableColumn<Asteroid,String> isHazardous;
+    public JFXTreeTableView<GST>  geomagneticStorms;
+    public JFXTreeTableColumn<GST,String> dateColumn;
+    public JFXTreeTableColumn<GST,String> timeColumn;
+    public JFXTreeTableColumn<GST,String> categoryColumn;
 
     private ExecutorService executor = Executors.newCachedThreadPool();
     private Gson gson = new Gson();
@@ -40,6 +51,7 @@ public class MainController implements Initializable {
 
         apiResults = new HashMap<>();
         fillNearestObjects();
+        fillGMS();
         executor.shutdown();
     }
 
@@ -80,10 +92,52 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
+    private void fillGMS(){
+       dateColumn.setCellValueFactory(param -> param.getValue().getValue().date);
+       timeColumn.setCellValueFactory(param -> param.getValue().getValue().time);
+       categoryColumn.setCellValueFactory(param -> param.getValue().getValue().category);
+       HashMap<String,String> params= new HashMap<>();
+       params.put("startDate",getDateMinus1Year());
+       params.put("endDate", getCurrentDate());
+        ObservableList<GST> gsts = FXCollections.observableArrayList();
+       try{
+           executor.execute(new APIRequestHandler("https://api.nasa.gov/DONKI/GST",params, new AsyncAPICall() {
+               @Override
+               public void onSuccess(String result) {
+                   JsonArray array = gson.fromJson(result,JsonArray.class);
+                   for (int i = 0; i < array.size(); i++) {
+                       gsts.add(new GST(array.get(i).getAsJsonObject().get("startTime").toString(),
+                                        array.get(i).getAsJsonObject().get("startTime").toString(),
+                                        array.get(i).getAsJsonObject().get("allKpIndex").getAsJsonArray().get(0).getAsJsonObject().get("kpIndex").toString()));
+                   }
+                   final TreeItem<GST> root = new RecursiveTreeItem<GST>(gsts,RecursiveTreeObject::getChildren);
+                   Platform.runLater(()->{
+                       geomagneticStorms.setRoot(root);
+                       geomagneticStorms.setShowRoot(false);
+                   });
+               }
+               @Override
+               public void onFailure(Exception exception) {
+                   apiResults.put("nearestObjects",null);
+               }
+           }));
+       }catch (Exception e){
+
+       }
+    }
+
+    //Helper Methods
     private String getCurrentDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
+    }
+    private String getDateMinus1Year(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1); // to get previous year add -1
+        Date nextYear = cal.getTime();
+        DateFormat newDate = new SimpleDateFormat("yyyy-MM-dd");
+        return newDate.format(nextYear);
     }
     private String parseLongInt(String longInt){
         StringBuilder result = new StringBuilder();
@@ -96,16 +150,5 @@ public class MainController implements Initializable {
         }
         result.insert(0,longInt);
         return result.toString();
-    }
-    class Asteroid extends RecursiveTreeObject<Asteroid>{
-        StringProperty name;
-        StringProperty approach;
-        StringProperty hazardous;
-
-        public Asteroid(String name, String approach, String hazardous){
-            this.name = new SimpleStringProperty(name);
-            this.approach = new SimpleStringProperty(approach);
-            this.hazardous = new SimpleStringProperty(hazardous);
-        }
     }
 }
