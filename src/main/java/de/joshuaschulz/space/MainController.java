@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -44,6 +46,7 @@ public class MainController implements Initializable {
     public JFXTreeTableColumn<GST,String> dateColumn;
     public JFXTreeTableColumn<GST,String> timeColumn;
     public JFXTreeTableColumn<GST,String> categoryColumn;
+    public ImageView epicImage;
 
     private ExecutorService executor = Executors.newCachedThreadPool();
     private Gson gson = new Gson();
@@ -54,6 +57,7 @@ public class MainController implements Initializable {
         apiResults = new HashMap<>();
         fillNearestObjects();
         fillGMS();
+       showEPICImage();
         executor.shutdown();
     }
 
@@ -75,7 +79,7 @@ public class MainController implements Initializable {
                     JsonArray array = objectJson.getAsJsonArray(getCurrentDate());
                     for (int i = 0; i < array.size(); i++) {
                         spaceObjects.add(new Asteroid(array.get(i).getAsJsonObject().get("name").toString(),
-                                                      parseLongInt(array.get(i).getAsJsonObject().get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject().get("miss_distance").getAsJsonObject().get("kilometers").toString()),
+                                                      parseLongInt(array.get(i).getAsJsonObject().get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject().get("miss_distance").getAsJsonObject().get("kilometers").toString())+" km",
                                                       array.get(i).getAsJsonObject().get("is_potentially_hazardous_asteroid").toString()));
                     }
                     final TreeItem<Asteroid> root = new RecursiveTreeItem<Asteroid>(spaceObjects,RecursiveTreeObject::getChildren);
@@ -128,6 +132,13 @@ public class MainController implements Initializable {
        }
     }
 
+    private void showEPICImage(){
+        Image image = new Image("https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png");
+        epicImage.setImage(image);
+        epicImage.setFitWidth(900);
+        epicImage.setPreserveRatio(true);
+    }
+
     //Helper Methods
     private String getCurrentDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -142,6 +153,7 @@ public class MainController implements Initializable {
         return newDate.format(nextYear);
     }
     private String parseLongInt(String longInt){
+        //ToDO: handle longer decimal places
         StringBuilder result = new StringBuilder();
         longInt=longInt.substring(1,longInt.length()-1);
         longInt=longInt.replace('.',',');
@@ -165,6 +177,6 @@ public class MainController implements Initializable {
     }
     private String parseTimestampToTime(String timestamp){
         //TODO: parse time do not hardcode
-        return timestamp.substring(12,17);
+        return timestamp.substring(12,17)+" UTC";
     }
 }

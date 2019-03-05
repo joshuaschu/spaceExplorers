@@ -6,87 +6,106 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:controller="de.joshuaschulz.space.MainController"
             xmlns:fx="http://javafx.com/fxml">
     <center>
-        <JFXMasonryPane>
-            <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500" >
-                <BorderPane>
-                    <top>
-                        <BorderPane styleClass="header">
-                            <center>
-                                <Label text="Todays nearest objects" alignment="CENTER" textAlignment="CENTER"
-                                       style="-fx-font-size: 20"/>
-                            </center>
-                        </BorderPane>
-                    </top>
-                    <center>
-                        <BorderPane>
-                            <center>
-                                <VBox>
-                                    <padding>
-                                        <Insets top="5" right="10" bottom="15" left="15"/>
-                                    </padding>
-                                    <!-- TODO: Header transparency???-->
-                                    <JFXTreeTableView fx:id="nearestObjects" styleClass="infoBox">
-                                        <columns>
-                                            <JFXTreeTableColumn fx:id="nameColumn"
-                                                                minWidth="133" text="Name" prefWidth="133"
-                                                                resizable="true"/>
-                                            <JFXTreeTableColumn fx:id="closesApproach"
-                                                                minWidth="133" text="Closest Approach" prefWidth="133"
-                                                                resizable="true"/>
-                                            <JFXTreeTableColumn fx:id="isHazardous"
-                                                                minWidth="133" text="Hazardous" prefWidth="133"
-                                                                resizable="true"/>
-                                        </columns>
-                                    </JFXTreeTableView>
-                                </VBox>
-                            </center>
-                        </BorderPane>
-                    </center>
-                </BorderPane>
-            </VBox>
-            <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500">
-                <BorderPane>
-                    <top>
-                        <BorderPane styleClass="header">
-                            <center>
-                                <Label text="Latest geomagnetic storms" alignment="CENTER" textAlignment="CENTER"
-                                       style="-fx-font-size: 20"/>
-                            </center>
-                        </BorderPane>
-                    </top>
-                    <center>
-                        <BorderPane>
-                            <center>
-                                <VBox>
-                                    <padding>
-                                        <Insets top="5" right="10" bottom="15" left="15"/>
-                                    </padding>
-                                    <!-- TODO: Header transparency???-->
-                                    <JFXTreeTableView fx:id="geomagneticStorms" styleClass="infoBox">
-                                        <columns>
-                                            <JFXTreeTableColumn fx:id="dateColumn"
-                                                                minWidth="133" text="Date" prefWidth="133"
-                                                                resizable="true"/>
-                                            <JFXTreeTableColumn fx:id="timeColumn"
-                                                                minWidth="133" text="Time" prefWidth="133"
-                                                                resizable="true"/>
-                                            <JFXTreeTableColumn fx:id="categoryColumn"
-                                                                minWidth="133" text="Category" prefWidth="133"
-                                                                resizable="true"/>
-                                        </columns>
-                                    </JFXTreeTableView>
-                                </VBox>
-                            </center>
-                        </BorderPane>
-                    </center>
-                </BorderPane>
-            </VBox>
-            <VBox prefWidth="250" prefHeight="250" styleClass="infoBox" minHeight="250" minWidth="250">
-                <Label style="-fx-font-size: 50">Text</Label>
-            </VBox>
-        </JFXMasonryPane>
+        <ScrollPane fitToWidth="true" fx:id="scrollPane" hbarPolicy="NEVER" >
+            <JFXMasonryPane>
+                <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500">
+                    <BorderPane>
+                        <top>
+                            <BorderPane styleClass="header">
+                                <center>
+                                    <Label text="Todays nearest objects" alignment="CENTER" textAlignment="CENTER"
+                                           style="-fx-font-size: 20"/>
+                                </center>
+                            </BorderPane>
+                        </top>
+                        <center>
+                            <BorderPane>
+                                <center>
+                                    <VBox>
+                                        <padding>
+                                            <Insets top="5" right="10" bottom="15" left="15"/>
+                                        </padding>
+                                        <!-- TODO: Header transparency???-->
+                                        <JFXTreeTableView fx:id="nearestObjects" styleClass="infoBox">
+                                            <columns>
+                                                <JFXTreeTableColumn fx:id="nameColumn"
+                                                                    minWidth="133" text="Name" prefWidth="133"
+                                                                    resizable="true"/>
+                                                <JFXTreeTableColumn fx:id="closesApproach"
+                                                                    minWidth="133" text="Closest Approach"
+                                                                    prefWidth="133"
+                                                                    resizable="true"/>
+                                                <JFXTreeTableColumn fx:id="isHazardous"
+                                                                    minWidth="133" text="Hazardous" prefWidth="133"
+                                                                    resizable="true"/>
+                                            </columns>
+                                        </JFXTreeTableView>
+                                    </VBox>
+                                </center>
+                            </BorderPane>
+                        </center>
+                    </BorderPane>
+                </VBox>
+                <VBox prefWidth="500" prefHeight="300" styleClass="infoBox" minHeight="300" minWidth="500">
+                    <BorderPane>
+                        <top>
+                            <BorderPane styleClass="header">
+                                <center>
+                                    <Label text="Latest geomagnetic storms" alignment="CENTER" textAlignment="CENTER"
+                                           style="-fx-font-size: 20"/>
+                                </center>
+                            </BorderPane>
+                        </top>
+                        <center>
+                            <BorderPane>
+                                <center>
+                                    <VBox>
+                                        <padding>
+                                            <Insets top="5" right="10" bottom="15" left="15"/>
+                                        </padding>
+                                        <!-- TODO: Header transparency???-->
+                                        <JFXTreeTableView fx:id="geomagneticStorms" styleClass="infoBox">
+                                            <columns>
+                                                <JFXTreeTableColumn fx:id="dateColumn"
+                                                                    minWidth="133" text="Date" prefWidth="133"
+                                                                    resizable="true"/>
+                                                <JFXTreeTableColumn fx:id="timeColumn"
+                                                                    minWidth="133" text="Time" prefWidth="133"
+                                                                    resizable="true"/>
+                                                <JFXTreeTableColumn fx:id="categoryColumn"
+                                                                    minWidth="133" text="Category" prefWidth="133"
+                                                                    resizable="true"/>
+                                            </columns>
+                                        </JFXTreeTableView>
+                                    </VBox>
+                                </center>
+                            </BorderPane>
+                        </center>
+                    </BorderPane>
+                </VBox>
+                <VBox prefWidth="1000" prefHeight="950" styleClass="infoBox" minHeight="950" minWidth="1000">
+                    <BorderPane>
+                        <top>
+                            <BorderPane>
+                                <center>
+                                    <Label text="Current image from EPIC" alignment="CENTER" textAlignment="CENTER"
+                                           style="-fx-font-size: 20"/>
+                                </center>
+                            </BorderPane>
+                        </top>
+                        <center>
+                            <ImageView fx:id="epicImage">
+
+                            </ImageView>
+                        </center>
+                    </BorderPane>
+                </VBox>
+            </JFXMasonryPane>
+        </ScrollPane>
     </center>
 </BorderPane>
