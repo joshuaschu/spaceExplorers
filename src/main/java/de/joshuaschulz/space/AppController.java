@@ -8,6 +8,7 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,8 +83,13 @@ public class AppController implements Initializable {
         ft.setCycleCount(1);
         ft.setAutoReverse(true);
         ft.play();
-        loadFXML(getClass().getResource("/views/main.fxml"));
-        mainPane.setBottom(null);
+        ft.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               loadFXML(getClass().getResource("/views/main.fxml"));
+                mainPane.setBottom(null);
+           }
+        });
     }
 
     private void showInfo(){

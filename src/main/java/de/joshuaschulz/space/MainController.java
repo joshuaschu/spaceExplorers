@@ -57,7 +57,7 @@ public class MainController implements Initializable {
         apiResults = new HashMap<>();
         fillNearestObjects();
         fillGMS();
-       showEPICImage();
+        //showEPICImage();
         executor.shutdown();
     }
 
