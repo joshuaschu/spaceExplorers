@@ -57,7 +57,7 @@ public class MainController implements Initializable {
         apiResults = new HashMap<>();
         fillNearestObjects();
         fillGMS();
-        //showEPICImage();
+        showEPICImage();
         executor.shutdown();
     }
 
@@ -133,10 +133,17 @@ public class MainController implements Initializable {
     }
 
     private void showEPICImage(){
-        Image image = new Image("https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png");
-        epicImage.setImage(image);
-        epicImage.setFitWidth(900);
-        epicImage.setPreserveRatio(true);
+        //TODO: inner class necessary??
+        class epicloader implements Runnable{
+            @Override
+            public void run() {
+                Image image = new Image("https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png");
+                epicImage.setImage(image);
+                epicImage.setFitWidth(900);
+                epicImage.setPreserveRatio(true);
+            }
+        }
+        executor.execute(new epicloader());
     }
 
     //Helper Methods
@@ -153,7 +160,7 @@ public class MainController implements Initializable {
         return newDate.format(nextYear);
     }
     private String parseLongInt(String longInt){
-        //ToDO: handle longer decimal places
+        //TODO: handle longer decimal places
         StringBuilder result = new StringBuilder();
         longInt=longInt.substring(1,longInt.length()-1);
         longInt=longInt.replace('.',',');
