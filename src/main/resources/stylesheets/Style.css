@@ -62,3 +62,6 @@
 .scroll-pane{
     -fx-background-color:transparent;
 }
+.planetsBackground{
+    -fx-background-image: url("../pictures/SkyOfStars.jpg");
+}

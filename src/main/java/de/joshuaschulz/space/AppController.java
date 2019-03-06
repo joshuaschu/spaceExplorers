@@ -91,6 +91,14 @@ public class AppController implements Initializable {
            }
         });
     }
+    @FXML
+    public void handlePlanetButton(ActionEvent actionEvent) {
+        try {
+            mainPane.getScene().setRoot(FXMLLoader.load(getClass().getResource("/views/planets.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void showInfo(){
         Dialog dialog = new Dialog();

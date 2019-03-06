@@ -22,9 +22,9 @@ public class App extends Application {
     }
     public void start(Stage primaryStage) throws Exception {
         Font font= Font.loadFont(getClass().getResource("/fonts/Fools-Errand.ttf").toExternalForm(), 18);
-        Parent root = FXMLLoader.load(this.getClass().getResource("/views/loading.fxml"));
+        Parent parent = FXMLLoader.load(this.getClass().getResource("/views/loading.fxml"));
         primaryStage.setTitle("Space Explorers");
-        Scene scene = new Scene(root,1464,1000);
+        Scene scene = new Scene(parent,1464,1000);
 
         String css = this.getClass().getResource("/stylesheets/Style.css").toExternalForm();
         scene.getStylesheets().add
@@ -35,7 +35,7 @@ public class App extends Application {
             @Override
             public void run() {
                 Parent innerRoot = loadBackground();
-                Scene innerScene = new Scene(innerRoot,1464,1000);
+                Scene innerScene = new Scene(innerRoot,1464,1000,true);
                 innerScene.getStylesheets().add
                         (css);
                 Platform.runLater(new Runnable() {
