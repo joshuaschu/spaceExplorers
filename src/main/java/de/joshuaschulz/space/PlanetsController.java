@@ -12,9 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -31,12 +29,10 @@ public class PlanetsController implements Initializable {
     final Xform cameraXform = new Xform();
     final Xform cameraXform2 = new Xform();
     final Xform cameraXform3 = new Xform();
-    final double cameraDistance = 450;
+    final double cameraDistance = 4000;
     final Xform moleculeGroup = new Xform();
     private Timeline timeline;
     boolean timelinePlaying = false;
-    double ONE_FRAME = 1.0/24.0;
-    double DELTA_MULTIPLIER = 200.0;
     double CONTROL_MULTIPLIER = 0.1;
     double SHIFT_MULTIPLIER = 0.1;
     double ALT_MULTIPLIER = 0.5;
@@ -54,7 +50,7 @@ public class PlanetsController implements Initializable {
         buildCamera();
         buildAxes();
         buildMolecule();
-        subScene = new SubScene(animationGroup,1024,678,true,SceneAntialiasing.DISABLED);
+        subScene = new SubScene(animationGroup,1464*2,1000*2,true,SceneAntialiasing.DISABLED);
         handleKeyboard(subScene, world);
         handleMouse(subScene, world);
         subScene.setCamera(camera);
@@ -77,8 +73,8 @@ public class PlanetsController implements Initializable {
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);
         camera.setTranslateZ(-cameraDistance);
-        cameraXform.ry.setAngle(320.0);
-        cameraXform.rx.setAngle(40);
+        cameraXform.ry.setAngle(0.0);
+        cameraXform.rx.setAngle(0);
     }
 
     private void buildAxes() {
@@ -110,8 +106,8 @@ public class PlanetsController implements Initializable {
     private void buildMolecule() {
 
         final PhongMaterial redMaterial = new PhongMaterial();
-        redMaterial.setDiffuseColor(Color.DARKRED);
-        redMaterial.setSpecularColor(Color.RED);
+        redMaterial.setDiffuseColor(Color.YELLOW);
+        redMaterial.setSpecularColor(Color.LIGHTYELLOW);
 
         final PhongMaterial whiteMaterial = new PhongMaterial();
         whiteMaterial.setDiffuseColor(Color.WHITE);
@@ -122,64 +118,115 @@ public class PlanetsController implements Initializable {
         greyMaterial.setSpecularColor(Color.GREY);
 
         // Molecule Hierarchy
-        // [*] moleculeXform
-        //     [*] oxygenXform
-        //         [*] oxygenSphere
-        //     [*] hydrogen1SideXform
-        //         [*] hydrogen1Xform
-        //             [*] hydrogen1Sphere
-        //         [*] bond1Cylinder
-        //     [*] hydrogen2SideXform
-        //         [*] hydrogen2Xform
-        //             [*] hydrogen2Sphere
-        //         [*] bond2Cylinder
+        // [*] systemXform
+        //     [*] sunXform
+        //         [*] sunSphere
+        //     [*] mercurySideXform
+        //         [*] mercuryXform
+        //             [*] mercurySphere
+        //     [*] venusSideXform
+        //         [*] venusXform
+        //             [*] venusSphere
 
-        Xform moleculeXform = new Xform();
-        Xform oxygenXform = new Xform();
-        Xform hydrogen1SideXform = new Xform();
-        Xform hydrogen1Xform = new Xform();
-        Xform hydrogen2SideXform = new Xform();
-        Xform hydrogen2Xform = new Xform();
+        Xform systemXform = new Xform();
+        Xform sunXform = new Xform();
+        Xform mercurySideXform = new Xform();
+        Xform mercuryXform = new Xform();
+        Xform venusSideXform = new Xform();
+        Xform venusXform = new Xform();
+        Xform earthSideXform = new Xform();
+        Xform earthXform = new Xform();
+        Xform marsSideXform = new Xform();
+        Xform marsXform = new Xform();
+        Xform jupiterSideXform = new Xform();
+        Xform jupiterXform = new Xform();
+        Xform saturnSideXform = new Xform();
+        Xform saturnXform = new Xform();
+        Xform uranusSideXform = new Xform();
+        Xform uranusXform = new Xform();
+        Xform neptuneSideXform = new Xform();
+        Xform neptuneXform = new Xform();
 
-        Sphere oxygenSphere = new Sphere(40.0);
-        oxygenSphere.setMaterial(redMaterial);
+        Sphere sunSphere = new Sphere(40.0);
+        sunSphere.setMaterial(redMaterial);
 
-        Sphere hydrogen1Sphere = new Sphere(30.0);
-        hydrogen1Sphere.setMaterial(whiteMaterial);
-        hydrogen1Sphere.setTranslateX(0.0);
+        Circle c = new Circle(50.0);
+        c.setFill(Color.TRANSPARENT);
+        c.setStroke(Color.AQUA);
 
-        Sphere hydrogen2Sphere = new Sphere(30.0);
-        hydrogen2Sphere.setMaterial(whiteMaterial);
-        hydrogen2Sphere.setTranslateZ(0.0);
+        Sphere mercurySphere = new Sphere(5.0);
+        mercurySphere.setMaterial(whiteMaterial);
+        mercurySphere.setTranslateZ(0.0);
 
-        Cylinder bond1Cylinder = new Cylinder(5, 100);
-        bond1Cylinder.setMaterial(greyMaterial);
-        bond1Cylinder.setTranslateX(50.0);
-        bond1Cylinder.setRotationAxis(Rotate.Z_AXIS);
-        bond1Cylinder.setRotate(90.0);
+        Sphere venusSphere = new Sphere(12.0);
+        venusSphere.setMaterial(whiteMaterial);
+        venusSphere.setTranslateZ(0.0);
 
-        Cylinder bond2Cylinder = new Cylinder(5, 100);
-        bond2Cylinder.setMaterial(greyMaterial);
-        bond2Cylinder.setTranslateX(50.0);
-        bond2Cylinder.setRotationAxis(Rotate.Z_AXIS);
-        bond2Cylinder.setRotate(90.0);
+        Sphere earthSphere = new Sphere(13.0);
+        earthSphere.setMaterial(whiteMaterial);
+        earthSphere.setTranslateZ(0.0);
 
-        moleculeXform.getChildren().add(oxygenXform);
-        moleculeXform.getChildren().add(hydrogen1SideXform);
-        moleculeXform.getChildren().add(hydrogen2SideXform);
-        oxygenXform.getChildren().add(oxygenSphere);
-        hydrogen1SideXform.getChildren().add(hydrogen1Xform);
-        hydrogen2SideXform.getChildren().add(hydrogen2Xform);
-        hydrogen1Xform.getChildren().add(hydrogen1Sphere);
-        hydrogen2Xform.getChildren().add(hydrogen2Sphere);
-        hydrogen1SideXform.getChildren().add(bond1Cylinder);
-        hydrogen2SideXform.getChildren().add(bond2Cylinder);
+        Sphere marsSphere = new Sphere(7.0);
+        marsSphere.setMaterial(whiteMaterial);
+        marsSphere.setTranslateZ(0.0);
 
-        hydrogen1Xform.setTx(100.0);
-        hydrogen2Xform.setTx(100.0);
-        hydrogen2SideXform.setRotateY(104.5);
+        Sphere jupiterSphere = new Sphere(143.0);
+        jupiterSphere.setMaterial(whiteMaterial);
+        jupiterSphere.setTranslateZ(0.0);
 
-        moleculeGroup.getChildren().add(moleculeXform);
+        Sphere saturnSphere = new Sphere(125.0);
+        saturnSphere.setMaterial(whiteMaterial);
+        saturnSphere.setTranslateZ(0.0);
+
+        Sphere uranusSphere = new Sphere(51.0);
+        uranusSphere.setMaterial(whiteMaterial);
+        uranusSphere.setTranslateZ(0.0);
+
+        Sphere neptuneSphere = new Sphere(50.0);
+        neptuneSphere.setMaterial(whiteMaterial);
+        neptuneSphere.setTranslateZ(0.0);
+
+        systemXform.getChildren().add(sunXform);
+        systemXform.getChildren().add(mercurySideXform);
+        systemXform.getChildren().add(venusSideXform);
+        systemXform.getChildren().add(earthSideXform);
+        systemXform.getChildren().add(marsSideXform);
+        systemXform.getChildren().add(jupiterSideXform);
+        systemXform.getChildren().add(saturnSideXform);
+        systemXform.getChildren().add(uranusSideXform);
+        systemXform.getChildren().add(neptuneSideXform);
+        sunXform.getChildren().add(sunSphere);
+        sunXform.getChildren().add(c);
+        mercurySideXform.getChildren().add(mercuryXform);
+        venusSideXform.getChildren().add(venusXform);
+        earthSideXform.getChildren().add(earthXform);
+        marsSideXform.getChildren().add(marsXform);
+        jupiterSideXform.getChildren().add(jupiterXform);
+        saturnSideXform.getChildren().add(saturnXform);
+        uranusSideXform.getChildren().add(uranusXform);
+        neptuneSideXform.getChildren().add(neptuneXform);
+
+        mercuryXform.getChildren().add(mercurySphere);
+        venusXform.getChildren().add(venusSphere);
+        earthXform.getChildren().add(earthSphere);
+        marsXform.getChildren().add(marsSphere);
+        jupiterXform.getChildren().add(jupiterSphere);
+        saturnXform.getChildren().add(saturnSphere);
+        uranusXform.getChildren().add(uranusSphere);
+        neptuneXform.getChildren().add(neptuneSphere);
+
+
+        mercuryXform.setTx(100.0);
+        venusXform.setTx(181.25);
+        earthXform.setTx(300.0);
+        marsXform.setTx(381.25);
+        jupiterXform.setTx(1300.0);
+        saturnXform.setTx(2400.0);
+        uranusXform.setTx(4800.0);
+        neptuneXform.setTx(7525.0);
+        //venusSideXform.setRotateY(104.5);
+
+        moleculeGroup.getChildren().add(systemXform);
 
         world.getChildren().addAll(moleculeGroup);
     }
