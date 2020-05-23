@@ -6,9 +6,11 @@ pipeline {
       }
   stages {
     stage('prep'){
+        steps{
         env.JAVA_HOME="${tool 'openjdk-11'}"
         env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
         sh 'java -version'
+        }
     }
     stage('Build') {
       steps {
